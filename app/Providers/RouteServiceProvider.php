@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
-        $this->registerFailsafeForOtherModelBindings();
+        /* $this->registerFailsafeForOtherModelBindings(); */
         
         $this->routes(function () {
             Route::middleware('api')
