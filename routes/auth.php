@@ -1,14 +1,9 @@
-<?php
+<?php 
 
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Auth Endpoints
 |--------------------------------------------------------------------------
 */
-
-Route::get('/', fn () => [
-    'name' => config('app.name'),
-    'version' => config('app.version'),
-]);
