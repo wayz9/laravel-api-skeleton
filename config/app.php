@@ -147,6 +147,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Global Pagination Limit
+    |--------------------------------------------------------------------------
+    |
+    | This number represents a fallback number for pagination. It is used across
+    | all resources that have pagination. If per_page attribute is not set we
+    | will use this number instead.
+    |
+    */
+
+    'default_per_page' => 15,
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
