@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
-        /* $this->registerFailsafeForOtherModelBindings(); */
+        $this->registerFailsafeForOtherModelBindings();
         
         $this->routes(function () {
             Route::middleware('api')
@@ -70,6 +70,20 @@ class RouteServiceProvider extends ServiceProvider
     private function registerRouteBindings(): void
     {
         // Register route bindings for the application.
+    }
+
+    /**
+     * Register failsafe for other model bindings.
+     *
+     * @return void
+     */
+    private function registerFailsafeForOtherModelBindings()
+    {
+        collect(File::allFiles(app_path('Models')))
+            ->map(fn ($splFileInfo) => $splFileInfo->getFilenameWithoutExtension())
+            ->each(fn($model) => 
+                Route::pattern(lcfirst($model), '[0-9]+')
+            );
     }
 
     /**
