@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,20 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Password::defaults(fn () 
+            => Password::min(8)
+                ->mixedCase()
+                ->letters()
+                ->numbers()
+                ->symbols()
+        );
+
+        ResetPassword::createUrlUsing(fn ($user, string $token) 
+            => sprintf('%s/reset-password?token=%s&email=%s', 
+                config('app.fe_url'),
+                $token,
+                urlencode($user->email)
+            )
+        );
     }
 }
